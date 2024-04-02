@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My Web Page</title>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td>C</td>
+            <td>R</td>
+            <td>U</td>
+            <td>D</td>
+        </tr>
+        <tr>
+            <td>CREATE</td>
+            <td>READ</td>
+            <td>UPDATE</td>
+            <td>DELETE</td>
+        </tr>
+        <tr>
+            <td>
+                <fieldset>   
+                    <form action="/createAccount" method="get">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" required><br><br>
+
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required><br><br>
+
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required><br><br>
+
+                        <input type="submit" value="Create Account">
+                    </form>
+                </fieldset>
+            </td>
+            <td>
+                <fieldset>
+                    <form action="/readAccount" method="get">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" required><br><br>
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required><br><br>
+                        <input type="submit" value="Read Account">
+                    </form>
+                </fieldset>
+            </td>
+            <td>
+                <fieldset>
+                    <form action="/updateAccount" method="get">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" required><br><br>
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required><br><br>
+                        <hr>
+                        <label for="newUsername">New Username:</label>
+                        <input type="text" id="newUsername" name="newUsername" required><br><br>
+                        <label for="newPassword">New Password:</label>
+                        <input type="password" id="newPassword" name="newPassword" required><br><br>
+                        <label for="newEmail">New Email:</label>
+                        <input type="email" id="newEmail" name="newEmail" required><br><br>
+                        <input type="submit" value="Update Account">
+                    </form>
+                </fieldset>
+            </td>
+            <td>
+                <fieldset>
+                    <form action="/deleteAccount" method="get">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" required><br><br>
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required><br><br>
+
+                        <input type="submit" value="Delete Account">
+                    </form>
+                </fieldset>
+            </td>
+        </tr>
+    </table>
+    Connect to my account
+    <br>
+    <form action="/connectAccount" method="get">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+
+        <input type="submit" value="Connect Account">
+    </form>
+
+</body>
+
+</html>

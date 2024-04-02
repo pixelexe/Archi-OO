@@ -9,10 +9,36 @@
 <p>Vous êtes sur la page d'accueil de notre site.</p>
 
 <p>Rechercher un pays</p>
+<br>
+<a href="/createAccountIndex"> créer un compte</a>
+<br>
 <form action="/searchCountry" method="get">
     <input type="text" name="name" placeholder="Nom du pays">
     <button type="submit">Rechercher</button>
 </form>
+
+<br>processForm<br>
+<form action="/processForm" method="get">
+    <label for="firstName">Prénom:</label>
+    <input type="text" id="firstName" name="firstName"><br><br>
+
+    <label for="lastName">Nom de famille:</label>
+    <input type="text" id="lastName" name="lastName"><br><br>
+
+    <button type="submit">Soumettre</button>
+</form>
+
+<br>processFormPost<br>
+<form action="/processFormV2" method="post">
+    <label for="firstName">Prénom:</label>
+    <input type="text" id="firstName" name="firstName"><br><br>
+
+    <label for="lastName">Nom de famille:</label>
+    <input type="text" id="lastName" name="lastName"><br><br>
+
+    <button type="submit">Soumettre</button>
+</form>
+
 
 </body>
 </html>
