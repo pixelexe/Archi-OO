@@ -19,6 +19,7 @@ public class Config {
 
     @Bean
     public UserRepositoryInterface getUserRepository() {
+
         return new UserRepository();
     }
 }

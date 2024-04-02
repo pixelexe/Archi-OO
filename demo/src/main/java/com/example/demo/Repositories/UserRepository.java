@@ -1,6 +1,7 @@
 package com.example.demo.Repositories;
 
 import com.example.demo.Model.User.*;
+import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -72,7 +73,7 @@ public class UserRepository implements UserRepositoryInterface {
         return this.formatUser(stmt.executeQuery());
     }
 
-    private User formatUser(ResultSet resultSet) throws SQLException {
+    private @Nullable User formatUser(ResultSet resultSet) throws SQLException {
         if (resultSet.next()){
 
             User user = switch (resultSet.getString("role")) {
