@@ -1,14 +1,16 @@
 package com.example.demo.Repositories;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import com.example.demo.Model.Place.Place;
+import com.example.demo.Model.Rate;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+
 import java.sql.SQLException;
 import java.util.List;
 
 public interface RateRepositoryInterface extends RepositoryInterface {
 
-    public List<String> getRate(String country) throws SQLException;
+    public List<Rate> getAllRates(Place place) throws SQLException;
 
-    public void setRate(int idUser, String country, int rate) throws SQLException;
-
+    public void persistRate(Rate rate) throws SQLException;
 }

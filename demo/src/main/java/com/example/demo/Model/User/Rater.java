@@ -1,6 +1,6 @@
 package com.example.demo.Model.User;
 
-import com.example.demo.Model.Place;
+import com.example.demo.Model.Place.Place;
 
 import java.sql.SQLException;
 

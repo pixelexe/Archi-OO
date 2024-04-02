@@ -1,15 +1,16 @@
 package com.example.demo.Model.User;
 
-import com.example.demo.Model.Place;
+import com.example.demo.Model.Place.Place;
 
-import com.example.demo.Repositories.RateRepository;
+import com.example.demo.Model.Rate;
 import com.example.demo.Repositories.RateRepositoryInterface;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.sql.PreparedStatement;
+
+import javax.persistence.Entity;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -18,7 +19,8 @@ import java.util.List;
 @Component
 public abstract class User implements Search, Rater {
 
-    private final RateRepositoryInterface rateRepository;
+    @Autowired
+    private RateRepositoryInterface rateRepository;
 
     private int id;
 
@@ -30,19 +32,15 @@ public abstract class User implements Search, Rater {
 
     private int rateStrength;
 
-    @Autowired
-    public User(RateRepositoryInterface rP){
-        this.rateRepository = rP;
-    }
-
     @Override
-    public List<String> search(String placeName) throws SQLException {
-        return this.rateRepository.getRate(placeName);
+    public List<Rate> search(Place place) throws SQLException {
+        return this.rateRepository.getAllRates(place);
     }
 
     @Override
     public void rate(Place place, int rating) throws SQLException {
-        this.rateRepository.setRate(this.id, place.getName(), rating);
+        Rate rate = new Rate(place.getName(), this.id, rating);
+        this.rateRepository.persistRate(rate);
     }
 
 }

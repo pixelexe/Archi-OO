@@ -1,4 +1,4 @@
-package com.example.demo.Model;
+package com.example.demo.Model.Place;
 
 import com.example.demo.Model.User.User;
 import lombok.Getter;
