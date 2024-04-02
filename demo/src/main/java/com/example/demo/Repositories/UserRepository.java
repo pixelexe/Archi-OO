@@ -2,7 +2,6 @@ package com.example.demo.Repositories;
 
 import com.example.demo.Model.User.*;
 import org.jetbrains.annotations.Nullable;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -35,7 +34,7 @@ public class UserRepository implements UserRepositoryInterface {
     }
 
     private void insertUser(User user) throws SQLException {
-        String query = "INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO user (username, email, password, role) VALUES (?, ?, ?, ?)";
         PreparedStatement stmt = this.conn.prepareStatement(query);
         stmt.setString(1, user.getUserName());
         stmt.setString(2, user.getEmail());
@@ -56,7 +55,7 @@ public class UserRepository implements UserRepositoryInterface {
 
     @Override
     public User getUserById(int idUser) throws SQLException {
-        String query = "SELECT * FROM users WHERE id = ?";
+        String query = "SELECT * FROM user WHERE id = ?";
         PreparedStatement stmt = this.conn.prepareStatement(query);
         stmt.setInt(1, idUser);
 
@@ -65,10 +64,9 @@ public class UserRepository implements UserRepositoryInterface {
 
     @Override
     public User getUserByEmail(String email) throws SQLException {
-        String query = "SELECT * FROM users WHERE email = ?";
+        String query = "SELECT * FROM user WHERE email = ?";
         PreparedStatement stmt = this.conn.prepareStatement(query);
         stmt.setString(1, email);
-
         return this.formatUser(stmt.executeQuery());
     }
 
