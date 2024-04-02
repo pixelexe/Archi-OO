@@ -1,6 +1,8 @@
 package com.example.demo.controllers;
 
 import com.example.demo.Model.Rate;
+import com.example.demo.Model.User.Rater;
+import com.example.demo.Model.User.User;
 import com.example.demo.Repositories.RateRepositoryInterface;
 import com.example.demo.Repositories.UserRepositoryInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +26,29 @@ public class RateController {
                               @RequestParam("rate") int rating,
                               @RequestParam("email") String emailUser) {
         try {
-            int idUser = userRepository.getUserByEmail(emailUser).getId();
+            User user = userRepository.getUserByEmail(emailUser);
+            if (user == null || ! (user instanceof Rater)){
+                return "User is not allowed to rate countries.";
+            }
+            int idUser = user.getId();
             Rate rate = new Rate(countryName, idUser, rating);
-            rateRepository.persistRate(rate);
+            rateRepository.persistRate(rate, user.getRateStrength());
             return "Country Rated";
         } catch (SQLException e) {
             return "Exception occurred : " + e.getMessage();
         }
+    }
 
-
+    @GetMapping("/rankPlace")
+    public String rankPlace() {
+        try {
+            StringBuilder sb = new StringBuilder();
+            for (String s : rateRepository.getTopTen()) {
+                sb.append(s).append("<br>");
+            }
+            return sb.toString();
+        } catch (SQLException e) {
+            return "Exception occurred : " + e.getMessage();
+        }
     }
 }

@@ -12,5 +12,7 @@ public interface RateRepositoryInterface extends RepositoryInterface {
 
     public List<Rate> getAllRates(Place place) throws SQLException;
 
-    public void persistRate(Rate rate) throws SQLException;
+    public void persistRate(Rate rate, int strength) throws SQLException;
+
+    public List<String> getTopTen() throws SQLException;
 }

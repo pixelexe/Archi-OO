@@ -19,7 +19,7 @@ import java.nio.charset.StandardCharsets;
 public class SearchController {
 
     @GetMapping("/searchByCapital")
-    public String searchCountry(@RequestParam("name") String pays) throws JsonMappingException, JsonProcessingException { //Besoin que ce soit un @RestController pour fonctionner
+    public String searchCountry(@RequestParam("name") String pays) throws JsonProcessingException {
         HttpResponse<String> response = null;
         try {
             HttpRequest request = HttpRequest.newBuilder()
