@@ -55,7 +55,20 @@ public class SearchController {
                 + "<br> Area = " + area 
                 + "<br> Population = " + population 
                 + "<br> Continents = " + continents
-                + "<br> <img src="+ flag+">";
+                + "<br> <img src="+ flag+">" +
+                "<form action='/rateCountry' method='get'>" +
+                "        <input type='hidden' name='name' value='name'>" +
+                "        <input type='text' name='email' placeholder='Votre email'>" +
+                "            <select name='rate'>" +
+                "                <option value='1'>1</option>" +
+                "                <option value='2'>2</option>" +
+                "                <option value='3'>3</option>" +
+                "                <option value='4'>4</option>" +
+                "                <option value='5'>5</option>" +
+                "            </select>" +
+                "         <input type='submit' value='Rate'>" +
+                "</form>";
+
     }
 
 
