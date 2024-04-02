@@ -1,6 +1,8 @@
-package Model;
+package com.example.demo.Model;
 
+import com.example.demo.Model.User.User;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 import java.util.Map;
@@ -13,6 +15,10 @@ public abstract class Place {
 
     @Getter
     private List<String> comments;
+
+    @Getter
+    @Setter
+    private String name;
 
     public void addComment(User user, String comment) {
         comments.add(comment);
