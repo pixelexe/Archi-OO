@@ -30,6 +30,7 @@ public class StaticController {
             throws JsonMappingException, JsonProcessingException { // Besoin que ce soit un @RestController pour
                                                                    // fonctionner
         HttpResponse<String> response = null;
+        pays = pays.replace(" ", "%20");
         try {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create("https://restcountries.com/v3.1/name/" + pays))
@@ -65,7 +66,19 @@ public class StaticController {
                 + "<br> Area = " + area
                 + "<br> Population = " + population
                 + "<br> Continents = " + continents
-                + "<br> <img src=" + flag + ">";
+                + "<br> <img src=" + flag + ">"+
+                "<form action='/rateCountry' method='get'>" +
+                "        <input type='hidden' name='name' value='"+ name +"'>" +
+                "        <input type='text' name='email' placeholder='Votre email'>" +
+                "            <select name='rate'>" +
+                "                <option value='1'>1</option>" +
+                "                <option value='2'>2</option>" +
+                "                <option value='3'>3</option>" +
+                "                <option value='4'>4</option>" +
+                "                <option value='5'>5</option>" +
+                "            </select>" +
+                "         <input type='submit' value='Rate'>" +
+                "</form>";
     }
 
     @GetMapping("/searchByRegion")
@@ -93,20 +106,8 @@ public class StaticController {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < json.size(); i++) {
             String name = json.get(i).get("name").get("common").asText();
-            String nameOfficial = json.get(i).get("name").get("official").asText();
-            String capital = json.get(i).get("capital").get(0).asText();
-            String subregion = json.get(i).get("subregion").asText();
-            String area = json.get(i).get("area").asText();
-            String population = json.get(i).get("population").asText();
             String flag = json.get(i).get("flags").get("png").asText();
-            String continents = json.get(i).get("continents").get(0).asText();
-            sb.append("Country name = " + name
-                    + "<br>Official name = " + nameOfficial
-                    + "<br> Capital =" + capital
-                    + "<br> Subregion = " + subregion
-                    + "<br> Area = " + area
-                    + "<br> Population = " + population
-                    + "<br> Continents = " + continents
+            sb.append(name
                     + "<br> <form action='searchByCountry'>"
                     + "<input type='hidden' name='name' value='"+ name + "'>"
                     + "<button type='submit' value='More info'>"
@@ -116,24 +117,5 @@ public class StaticController {
         }
         return sb.toString();
     }
-    // String name = json.get(0).get("name").get("common").asText();
-    // String nameOfficial = json.get(0).get("name").get("official").asText();
-    // String capital = json.get(0).get("capital").get(0).asText();
-    // String region = json.get(0).get("region").asText();
-    // String subregion = json.get(0).get("subregion").asText();
-    // String area = json.get(0).get("area").asText();
-    // String population = json.get(0).get("population").asText();
-    // String flag = json.get(0).get("flags").get("png").asText();
-    // String continents = json.get(0).get("continents").get(0).asText();
-
-    // return "Country name = "+ name
-    // + "<br>Official name = " + nameOfficial
-    // + "<br> Capital =" + capital
-    // + "<br> Region = " + region
-    // + "<br> Subregion = " + subregion
-    // + "<br> Area = " + area
-    // + "<br> Population = " + population
-    // + "<br> Continents = " + continents
-    // + "<br> <img src="+ flag+">";
 
 }
