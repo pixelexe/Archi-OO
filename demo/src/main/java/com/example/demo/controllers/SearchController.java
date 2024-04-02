@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.net.URI;
@@ -14,9 +15,10 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 
+@RestController
 public class SearchController {
 
-    @GetMapping("/searchCountry")
+    @GetMapping("/searchByCapital")
     public String searchCountry(@RequestParam("name") String pays) throws JsonMappingException, JsonProcessingException { //Besoin que ce soit un @RestController pour fonctionner
         HttpResponse<String> response = null;
         try {
@@ -45,7 +47,7 @@ public class SearchController {
         String flag = json.get(0).get("flags").get("png").asText();
         String continents = json.get(0).get("continents").get(0).asText();
         
-        return "name = "+ name 
+        return "Country name = "+ name 
                 + "<br>Official name = " + nameOfficial 
                 + "<br> Capital =" + capital 
                 + "<br> Region = " + region 
@@ -55,4 +57,8 @@ public class SearchController {
                 + "<br> Continents = " + continents
                 + "<br> <img src="+ flag+">";
     }
+
+
+
+
 }
