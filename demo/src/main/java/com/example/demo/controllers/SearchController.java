@@ -57,7 +57,7 @@ public class SearchController {
                 + "<br> Continents = " + continents
                 + "<br> <img src="+ flag+">" +
                 "<form action='/rateCountry' method='get'>" +
-                "        <input type='hidden' name='name' value='name'>" +
+                "        <input type='hidden' name='name' value='"+ name + "'>" +
                 "        <input type='text' name='email' placeholder='Votre email'>" +
                 "            <select name='rate'>" +
                 "                <option value='1'>1</option>" +

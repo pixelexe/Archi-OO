@@ -20,7 +20,7 @@ public class RateController {
     private RateRepositoryInterface rateRepository;
 
     @GetMapping("/rateCountry")
-    public String rateCountry(@RequestParam("country") String countryName,
+    public String rateCountry(@RequestParam("name") String countryName,
                               @RequestParam("rate") int rating,
                               @RequestParam("email") String emailUser) {
         try {
@@ -29,7 +29,7 @@ public class RateController {
             rateRepository.persistRate(rate);
             return "Country Rated";
         } catch (SQLException e) {
-            return "Exception occurred";
+            return "Exception occurred : " + e.getMessage();
         }
 
 
