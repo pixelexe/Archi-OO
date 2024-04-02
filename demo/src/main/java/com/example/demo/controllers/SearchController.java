@@ -16,20 +16,49 @@ import java.sql.SQLException;
 
 import javax.servlet.http.*;
 
-@Controller
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+@RestController
 public class SearchController {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/aoo";
     private static final String DB_USERNAME = "root";
     private static final String DB_PASSWORD = "";
 
-
     @GetMapping("/searchCountry")
-    public String searchCountry(@RequestParam("name") String pays) {
-        return pays + "<br> <a href='/'>Retour</a>";
+    public String searchCountry(@RequestParam("name") String pays) throws JsonMappingException, JsonProcessingException { //Besoin que ce soit un @RestController pour fonctionner
+        HttpResponse<String> response = null;
+        try {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create("https://restcountries.com/v3.1/capital/paris"))
+                    .method("GET", HttpRequest.BodyPublishers.noBody())
+                    .build();
+            try {
+                response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        } catch (Exception e) {
+            return "Error";
+        }
+        JsonNode json = new ObjectMapper().readTree(response.body());
+        
+        return json.get(0).get("name").get("common").asText();
     }
 
     @GetMapping("/processForm")
-    public String processForm(@RequestParam("firstName") String firstName,@RequestParam("lastName") String lastName) {
+    public String processForm(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName) {
 
         String test = firstName + " " + lastName;
 
@@ -37,7 +66,7 @@ public class SearchController {
     }
 
     @GetMapping("/processFormV2")
-    public String processFormV2(@RequestParam("firstName") String firstName,@RequestParam("lastName") String lastName, HttpServletRequest request) {
+    public String processFormV2(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName) {
         String test = firstName + " " + lastName;
         // HttpSession session = request.getSession();
         // session.setAttribute("firstName", firstName);
@@ -45,14 +74,15 @@ public class SearchController {
         return test;
     }
 
-        @GetMapping("/createAccountIndex")
+    @GetMapping("/createAccountIndex")
     public RedirectView createAccount() {
         return new RedirectView("connexion.html");
     }
 
     @GetMapping("/createAccount")
-    public String createAccount(@RequestParam("username") String username,@RequestParam("password") String password, @RequestParam("email") String email) {
-        
+    public String createAccount(@RequestParam("username") String username, @RequestParam("password") String password,
+            @RequestParam("email") String email) {
+
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
             String insertQuery = "INSERT INTO user (username, password, email) VALUES (?,?, ?)";
 
@@ -68,11 +98,11 @@ public class SearchController {
             System.out.println("Error inserting request into the database" + e.getMessage());
         }
 
-        return"Rip account";
+        return "Rip account";
     }
 
     @GetMapping("/connectAccount")
-    public String connexion(@RequestParam("username") String username,@RequestParam("password") String password) {
+    public String connexion(@RequestParam("username") String username, @RequestParam("password") String password) {
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
             String selectQuery = "SELECT * FROM user WHERE username = ? AND password = ? AND active = 1";
 
@@ -96,7 +126,7 @@ public class SearchController {
     }
 
     @GetMapping("/deleteAccount")
-    public String deleteAccount(@RequestParam("username") String username, @RequestParam("password") String password){
+    public String deleteAccount(@RequestParam("username") String username, @RequestParam("password") String password) {
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
             String deleteQuery = "UPDATE user set active = ? WHERE username = ? AND password = ?";
 
@@ -114,9 +144,9 @@ public class SearchController {
 
         return "Rip delete";
     }
-    
+
     @GetMapping("/readAccount")
-    public String readAccount(@RequestParam("username") String username, @RequestParam("password") String password){
+    public String readAccount(@RequestParam("username") String username, @RequestParam("password") String password) {
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
             String selectQuery = "SELECT * FROM user WHERE username = ? AND password = ? AND active = 1";
 
@@ -145,11 +175,10 @@ public class SearchController {
 
     @GetMapping("/updateAccount")
     public String updateAccount(@RequestParam("username") String username,
-                                @RequestParam("password") String password, 
-                                @RequestParam("newPassword") String newPassword,
-                                @RequestParam("newUsername") String newUsername,
-                                @RequestParam("newEmail") String newEmail
-                                ){
+            @RequestParam("password") String password,
+            @RequestParam("newPassword") String newPassword,
+            @RequestParam("newUsername") String newUsername,
+            @RequestParam("newEmail") String newEmail) {
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
             String updateQuery = "UPDATE user set username = ?, password = ?, email = ? WHERE username = ? AND password = ? AND active = 1";
             String selectQuery = "SELECT * FROM user WHERE username = ? AND password = ? AND active = 1";
