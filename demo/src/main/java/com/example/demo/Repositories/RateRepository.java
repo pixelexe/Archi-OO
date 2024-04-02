@@ -6,9 +6,21 @@ import java.util.List;
 
 public class RateRepository implements RateRepositoryInterface{
 
+    private final Connection conn;
+
+    public RateRepository(){
+        Connection conn1;
+        try{
+            conn1 = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
+        } catch (SQLException e){
+            conn1 = null;
+            e.printStackTrace();
+        }
+        this.conn = conn1;
+    }
+
     @Override
     public List<String> getRate(String locationName) throws SQLException {
-            Connection conn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
 
             String getRatesQuery = "SELECT rate FROM rate WHERE name = ?";
 
@@ -24,7 +36,6 @@ public class RateRepository implements RateRepositoryInterface{
 
     @Override
     public void setRate(int idUser, String locationName, int rate) throws SQLException {
-        Connection conn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
 
         String setRateQuery = "INSERT INTO rate (idUser, name, rate) VALUES (?, ?, ?)";
 
