@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,7 +16,7 @@ import java.sql.SQLException;
 
 import javax.servlet.http.*;
 
-@RestController
+@Controller
 public class SearchController {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/aoo";
     private static final String DB_USERNAME = "root";
@@ -28,18 +30,18 @@ public class SearchController {
 
     @GetMapping("/processForm")
     public String processForm(@RequestParam("firstName") String firstName,@RequestParam("lastName") String lastName) {
-        // HttpSession session = request.getSession();
-        // session.setAttribute("firstName", firstName);
-        // session.setAttribute("lastName", lastName);
+
         String test = firstName + " " + lastName;
 
         return test;
     }
 
-    @PostMapping("/processFormV2")
+    @GetMapping("/processFormV2")
     public String processFormV2(@RequestParam("firstName") String firstName,@RequestParam("lastName") String lastName, HttpServletRequest request) {
         String test = firstName + " " + lastName;
-
+        // HttpSession session = request.getSession();
+        // session.setAttribute("firstName", firstName);
+        // session.setAttribute("lastName", lastName);
         return test;
     }
 
