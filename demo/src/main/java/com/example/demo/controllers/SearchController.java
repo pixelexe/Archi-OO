@@ -39,7 +39,7 @@ public class SearchController {
         HttpResponse<String> response = null;
         try {
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("https://restcountries.com/v3.1/capital/paris"))
+                    .uri(URI.create("https://restcountries.com/v3.1/capital/"+pays))
                     .method("GET", HttpRequest.BodyPublishers.noBody())
                     .build();
             try {
@@ -53,8 +53,25 @@ public class SearchController {
             return "Error";
         }
         JsonNode json = new ObjectMapper().readTree(response.body());
+        String name = json.get(0).get("name").get("common").asText();
+        String nameOfficial = json.get(0).get("name").get("official").asText();
+        String capital = json.get(0).get("capital").get(0).asText();
+        String region = json.get(0).get("region").asText();
+        String subregion = json.get(0).get("subregion").asText();
+        String area = json.get(0).get("area").asText();
+        String population = json.get(0).get("population").asText();
+        String flag = json.get(0).get("flags").get("png").asText();
+        String continents = json.get(0).get("continents").get(0).asText();
         
-        return json.get(0).get("name").get("common").asText();
+        return "name = "+ name 
+                + "<br>Official name = " + nameOfficial 
+                + "<br> Capital =" + capital 
+                + "<br> Region = " + region 
+                + "<br> Subregion = " + subregion 
+                + "<br> Area = " + area 
+                + "<br> Population = " + population 
+                + "<br> Continents = " + continents
+                + "<br> <img src="+ flag+">";
     }
 
     @GetMapping("/processForm")
