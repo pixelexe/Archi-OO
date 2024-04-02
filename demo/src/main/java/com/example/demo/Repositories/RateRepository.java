@@ -1,8 +1,12 @@
 package com.example.demo.Repositories;
 
+import com.example.demo.Model.Place.Place;
+import com.example.demo.Model.Rate;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class RateRepository implements RateRepositoryInterface{
 
@@ -20,29 +24,31 @@ public class RateRepository implements RateRepositoryInterface{
     }
 
     @Override
-    public List<String> getRate(String locationName) throws SQLException {
+    public List<Rate> getAllRates(Place place) throws SQLException {
 
-            String getRatesQuery = "SELECT rate FROM rate WHERE name = ?";
+        String getRatesQuery = "SELECT rate FROM rate WHERE name = ?";
 
-            PreparedStatement preparedStatement = conn.prepareStatement(getRatesQuery);
-            preparedStatement.setString(1, locationName);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            List<String> results = new ArrayList<>();
-            while(resultSet.next()){
-                results.add(resultSet.getString("rate"));
-            }
-            return results;
+        PreparedStatement preparedStatement = conn.prepareStatement(getRatesQuery);
+        preparedStatement.setString(1, place.getName());
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        List<Rate> ratings = new ArrayList<>();
+        while (resultSet.next()) {
+            ratings.add(new Rate(resultSet.getString("name"), resultSet.getInt("idUser"),
+                    resultSet.getInt("rate ")));
+        }
+        return ratings;
     }
 
     @Override
-    public void setRate(int idUser, String locationName, int rate) throws SQLException {
+    public void persistRate(Rate rate) throws SQLException {
 
-        String setRateQuery = "INSERT INTO rate (idUser, name, rate) VALUES (?, ?, ?)";
+        String setRateQuery = "INSERT INTO rate (idUser, rate, name) VALUES (?, ?, ?)";
 
         PreparedStatement preparedStatement = conn.prepareStatement(setRateQuery);
-        preparedStatement.setInt(1, idUser);
-        preparedStatement.setString(2, locationName);
-        preparedStatement.setInt(3, rate);
+        preparedStatement.setInt(1, rate.idUser());
+        preparedStatement.setInt(2, rate.rate());
+        preparedStatement.setString(3, rate.placeName());
         preparedStatement.executeUpdate();
 
     }
