@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
 @RestController
-public class HelloController{
+public class StaticController{
 
     @GetMapping("/")
     public RedirectView index() {

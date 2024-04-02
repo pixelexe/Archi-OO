@@ -12,4 +12,8 @@ public interface UserRepositoryInterface extends RepositoryInterface{
 
     User getUserByEmail(String email) throws SQLException;
 
+    boolean accountExistsAndActive(User user) throws SQLException;
+
+    void deleteUser(User user) throws SQLException;
+
 }

@@ -26,7 +26,7 @@ public class UserRepository implements UserRepositoryInterface {
 
     @Override
     public void persistUser(User user) throws SQLException {
-        if (this.getUserById(user.getId()) == null) {
+        if (this.getUserByEmail(user.getEmail()) == null) {
             this.insertUser(user);
         }
         else {
@@ -35,13 +35,12 @@ public class UserRepository implements UserRepositoryInterface {
     }
 
     private void insertUser(User user) throws SQLException {
-        String query = "INSERT INTO users (id, username, email, password, rateStrength) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)";
         PreparedStatement stmt = this.conn.prepareStatement(query);
-        stmt.setInt(1, user.getId());
-        stmt.setString(2, user.getUserName());
-        stmt.setString(3, user.getEmail());
-        stmt.setString(4, user.getPassword());
-        stmt.setInt(5, user.getRateStrength());
+        stmt.setString(1, user.getUserName());
+        stmt.setString(2, user.getEmail());
+        stmt.setString(3, user.getPassword());
+        stmt.setString(4, "Beginner");
         stmt.executeUpdate();
     }
 
@@ -92,5 +91,23 @@ public class UserRepository implements UserRepositoryInterface {
         else {
             return null;
         }
+    }
+
+    @Override
+    public boolean accountExistsAndActive(User user) throws SQLException {
+        String query = "SELECT * FROM users WHERE email = ? AND password = ? AND active = 1";
+        PreparedStatement stmt = this.conn.prepareStatement(query);
+        stmt.setString(1, user.getEmail());
+        stmt.setString(2, user.getPassword());
+        ResultSet resultSet = stmt.executeQuery();
+        return resultSet.next();
+    }
+
+    @Override
+    public void deleteUser(User user) throws SQLException {
+        String query = "UPDATE users SET active = 0 WHERE id = ?";
+        PreparedStatement stmt = this.conn.prepareStatement(query);
+        stmt.setInt(1, user.getId());
+        stmt.executeUpdate();
     }
 }
