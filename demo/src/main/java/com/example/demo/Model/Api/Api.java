@@ -14,5 +14,6 @@ public interface Api {
 
     public JsonNode getJson(HttpRequest request);
 
+    public String cleanURL(String url);
 
 }

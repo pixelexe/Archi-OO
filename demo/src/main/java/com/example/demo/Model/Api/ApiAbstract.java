@@ -33,13 +33,18 @@ public abstract class ApiAbstract implements Api{
     public HttpRequest callApi(String countryName) {
         try {
             return HttpRequest.newBuilder()
-                    .uri(URI.create(this.getURL(countryName)))
+                    .uri(URI.create(cleanURL(this.getURL(countryName))))
                     .method("GET", HttpRequest.BodyPublishers.noBody())
                     .build();
         } catch (Exception e) {
             System.out.println("Error in the request" + e.getMessage());
         }
         return null;
+    }
+
+    @Override
+    public String cleanURL(String url) {
+        return url.replaceAll(" ", "%20");
     }
     
 }
