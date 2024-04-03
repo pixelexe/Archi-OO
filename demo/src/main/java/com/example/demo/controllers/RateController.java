@@ -31,7 +31,7 @@ public class RateController {
                 return "User is not allowed to rate countries.";
             }
             int idUser = user.getId();
-            Rate rate = new Rate(countryName, idUser, rating);
+            Rate rate = new Rate(countryName, idUser, rating, user.getRateStrength());
             rateRepository.persistRate(rate, user.getRateStrength());
             return "Country Rated";
         } catch (SQLException e) {

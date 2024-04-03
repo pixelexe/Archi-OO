@@ -35,7 +35,7 @@ public class RateRepository implements RateRepositoryInterface{
         List<Rate> ratings = new ArrayList<>();
         while (resultSet.next()) {
             ratings.add(new Rate(resultSet.getString("name"), resultSet.getInt("idUser"),
-                    resultSet.getInt("rate ")));
+                    resultSet.getInt("rate "), resultSet.getInt("rate_strength")));
         }
         return ratings;
     }
