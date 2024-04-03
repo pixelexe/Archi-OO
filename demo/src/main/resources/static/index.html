@@ -11,7 +11,12 @@
         <hr>
         <br>
         <a href="/createAccountIndex">Créer un compte</a>
-
+        <br>
+        <form action="/searchByCapital" method="get" style="border:2px">
+            <label for="name">Capitale</label>
+            <input type="text" id="name" name="name">
+            <button type="submit">Rechercher</button>
+        </form>
         <hr><br>
         <form action="/searchByCountry" method="get" style="border:2px">
             <label for="name">Nom du pays</label>
