@@ -31,6 +31,11 @@ public abstract class Place {
         this.recalculateRating();
     }
 
+    public void addRate(List<Rate> rates) {
+        ratings.addAll(rates);
+        this.recalculateRating();
+    }
+
     private void recalculateRating() {
         double numerator = 0;
         double denominator = 0;
