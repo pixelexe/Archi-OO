@@ -1,9 +1,9 @@
 package com.example.demo;
 
-import com.example.demo.Model.Api.Api;
-import com.example.demo.Model.Api.ApiCountryByCapital;
-import com.example.demo.Model.Api.ApiCountryByCountryName;
-import com.example.demo.Model.Api.ApiRegion;
+import com.example.demo.Api.Api;
+import com.example.demo.Api.ApiCountryByCapital;
+import com.example.demo.Api.ApiCountryByCountryName;
+import com.example.demo.Api.ApiRegion;
 import com.example.demo.Repositories.RateRepository;
 import com.example.demo.Repositories.RateRepositoryInterface;
 import com.example.demo.Repositories.UserRepository;

@@ -1,4 +1,4 @@
-package com.example.demo.Model.Api;
+package com.example.demo.Api;
 
 import java.io.IOException;
 import java.net.URI;

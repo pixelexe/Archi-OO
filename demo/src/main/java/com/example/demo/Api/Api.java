@@ -1,4 +1,4 @@
-package com.example.demo.Model.Api;
+package com.example.demo.Api;
 
 import java.net.http.HttpRequest;
 import java.util.Map;
