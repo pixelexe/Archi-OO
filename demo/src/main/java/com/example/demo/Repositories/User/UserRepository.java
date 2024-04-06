@@ -1,4 +1,4 @@
-package com.example.demo.Repositories;
+package com.example.demo.Repositories.User;
 
 import com.example.demo.Model.User.*;
 import org.jetbrains.annotations.Nullable;
@@ -17,7 +17,6 @@ public class UserRepository implements UserRepositoryInterface {
             conn1 = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
         } catch (SQLException e) {
             conn1 = null;
-            e.printStackTrace();
         }
         this.conn = conn1;
     }

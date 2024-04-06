@@ -1,6 +1,6 @@
 package com.example.demo.Model.User;
 
-import com.example.demo.Repositories.RateRepositoryInterface;
+import com.example.demo.Repositories.Rate.RateRepositoryInterface;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,7 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.Model.User.BeginnerUser;
 import com.example.demo.Model.User.User;
-import com.example.demo.Repositories.UserRepository;
+import com.example.demo.Repositories.User.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,7 +14,7 @@ import java.sql.SQLException;
 public class UserController {
 
     @Autowired
-    private static UserRepository userRepository;
+    private UserRepository userRepository;
 
     @GetMapping("/createAccountIndex")
     public RedirectView createAccount() {

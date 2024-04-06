@@ -1,10 +1,12 @@
 package com.example.demo.controllers;
 
+import com.example.demo.Model.Place.Country;
+import com.example.demo.Model.Place.Place;
 import com.example.demo.Model.Rate;
 import com.example.demo.Model.User.Rater;
 import com.example.demo.Model.User.User;
-import com.example.demo.Repositories.RateRepositoryInterface;
-import com.example.demo.Repositories.UserRepositoryInterface;
+import com.example.demo.Repositories.Rate.RateRepositoryInterface;
+import com.example.demo.Repositories.User.UserRepositoryInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,8 +32,7 @@ public class RateController {
             if (user == null || ! (user instanceof Rater)){
                 return "User is not allowed to rate countries.";
             }
-            int idUser = user.getId();
-            Rate rate = new Rate(countryName, idUser, rating, user.getRateStrength());
+            Rate rate = new Rate(new Country(countryName), user, rating, user.getRateStrength());
             rateRepository.persistRate(rate, user.getRateStrength());
             return "Country Rated";
         } catch (SQLException e) {

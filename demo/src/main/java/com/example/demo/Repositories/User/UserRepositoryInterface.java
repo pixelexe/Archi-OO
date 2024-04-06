@@ -1,10 +1,11 @@
-package com.example.demo.Repositories;
+package com.example.demo.Repositories.User;
 
 import com.example.demo.Model.User.User;
+import com.example.demo.Repositories.RepositoryInterface;
 
 import java.sql.SQLException;
 
-public interface UserRepositoryInterface extends RepositoryInterface{
+public interface UserRepositoryInterface extends RepositoryInterface {
 
     void persistUser(User user) throws SQLException;
 

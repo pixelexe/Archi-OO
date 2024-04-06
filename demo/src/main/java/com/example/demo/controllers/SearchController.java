@@ -1,5 +1,8 @@
 package com.example.demo.controllers;
 import com.example.demo.Api.Api;
+import com.example.demo.Model.Place.Country;
+import com.example.demo.Repositories.Rate.RateRepositoryInterface;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,6 +14,9 @@ public class SearchController {
     private Api apiCapital;
     private Api apiCountry;
     private Api apiRegion;
+
+    @Autowired
+    private RateRepositoryInterface rateRepository;
 
     public SearchController(@Qualifier("apiCapital") Api apiCapital, @Qualifier("apiCountry") Api apiCountry,
             @Qualifier("apiRegion") Api apiRegion) {
@@ -34,7 +40,7 @@ public class SearchController {
                     + "<br> Population = " + map.get("population")
                     + "<br> Continents = " + map.get("continents")
                     + "<br> <img src=" + map.get("flag") + ">" +
-                    "<br> <br> <hr> <h1> Rate this country </h1> <br>" +
+                    "<br> <br> <hr> <h1>Rate:" + rateRepository.getRate(new Country(map.get("name"))) + "/5 <br> Rate this country </h1> <br>" +
                     "<form action='/rateCountry' method='get'>" +
                     "        <input type='hidden' name='name' value='" + map.get("name") + "'>" +
                     "        <input type='text' name='email' placeholder='Votre email'>" +
