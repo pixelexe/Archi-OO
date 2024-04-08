@@ -34,6 +34,7 @@ public class RateController {
             }
             Rate rate = new Rate(new Country(countryName), user, rating, user.getRateStrength());
             rateRepository.persistRate(rate, user.getRateStrength());
+            rateRepository.rankup(user);
             return "Country Rated";
         } catch (SQLException e) {
             return "Exception occurred : " + e.getMessage();
