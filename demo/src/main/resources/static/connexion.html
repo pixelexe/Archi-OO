@@ -39,8 +39,8 @@
             <td>
                 <fieldset>
                     <form action="/readAccount" method="get">
-                        <label for="username">Username:</label>
-                        <input type="text" id="username" name="username" required><br><br>
+                        <label for="email">email:</label>
+                        <input type="text" id="email" name="email" required><br><br>
                         <label for="password">Password:</label>
                         <input type="password" id="password" name="password" required><br><br>
                         <input type="submit" value="Read Account">
@@ -50,7 +50,7 @@
             <td>
                 <fieldset>
                     <form action="/updateAccount" method="get">
-                        <label for="username">Username:</label>
+                        <label for="username">email:</label>
                         <input type="text" id="username" name="username" required><br><br>
                         <label for="password">Password:</label>
                         <input type="password" id="password" name="password" required><br><br>
@@ -59,8 +59,6 @@
                         <input type="text" id="newUsername" name="newUsername" required><br><br>
                         <label for="newPassword">New Password:</label>
                         <input type="password" id="newPassword" name="newPassword" required><br><br>
-                        <label for="newEmail">New Email:</label>
-                        <input type="email" id="newEmail" name="newEmail" required><br><br>
                         <input type="submit" value="Update Account">
                     </form>
                 </fieldset>
@@ -82,8 +80,8 @@
     Connect to my account
     <br>
     <form action="/connectAccount" method="get">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required><br><br>
+        <label for="email">email:</label>
+        <input type="text" id="email" name="email" required><br><br>
 
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required><br><br>

@@ -51,7 +51,7 @@ public class UserController {
             }
         }
         catch (SQLException e) {
-            view = "Erreur serveur";
+            view = e.getMessage();
         }
         return view;
     }
@@ -93,15 +93,13 @@ public class UserController {
     public String updateAccount(@RequestParam("username") String username,
             @RequestParam("password") String password,
             @RequestParam("newPassword") String newPassword,
-            @RequestParam("newUsername") String newUsername,
-            @RequestParam("newEmail") String newEmail) {
+            @RequestParam("newUsername") String newUsername) {
         try {
             User user = userRepository.getUserByEmail(username);
             if (user != null && userRepository.accountExistsAndActive(user) && user.getPassword().equals(password))
             {
                 user.setUserName(newUsername);
                 user.setPassword(newPassword);
-                user.setEmail(newEmail);
                 userRepository.persistUser(user);
                 return "Account updated successfully";
             } else {
