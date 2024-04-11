@@ -4,6 +4,12 @@ import com.example.demo.Api.Api;
 import com.example.demo.Api.ApiCountryByCapital;
 import com.example.demo.Api.ApiCountryByCountryName;
 import com.example.demo.Api.ApiRegion;
+import com.example.demo.Handler.RaterHandler;
+import com.example.demo.Repositories.Rate.RateRepository;
+import com.example.demo.Repositories.Rate.RateRepositoryInterface;
+import com.example.demo.Repositories.User.UserRepository;
+import com.example.demo.Repositories.User.UserRepositoryInterface;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -28,5 +34,14 @@ public class Config {
         return new ApiCountryByCountryName();
     }
 
-    
+    @Bean({"rateRepositoryInterface"})
+    public RateRepositoryInterface rateRepositoryInterface() {
+        return new RateRepository();
+    }
+
+    @Bean({"RaterHandler"})
+    public RaterHandler raterHandler() {
+        return new RaterHandler();
+    }
+
 }

@@ -61,15 +61,16 @@ public class RateRepository implements RateRepositoryInterface {
     public void persistRate(Rate rate, int strength) throws SQLException {
 
         String setRateQuery = "INSERT INTO rate (idUser, rate, name, rate_strength) VALUES (?, ?, ?, ?)";
-
-        PreparedStatement preparedStatement = conn.prepareStatement(setRateQuery);
-        preparedStatement.setInt(1, rate.user().getId());
-        preparedStatement.setInt(2, rate.rate());
-        preparedStatement.setString(3, rate.place().getName());
-        preparedStatement.setInt(4, strength);
-        preparedStatement.executeUpdate();
+            PreparedStatement preparedStatement = conn.prepareStatement(setRateQuery);
+            preparedStatement.setInt(1, rate.user().getId());
+            preparedStatement.setInt(2, rate.rate());
+            preparedStatement.setString(3, rate.place().getName());
+            preparedStatement.setInt(4, strength);
+            preparedStatement.executeUpdate();
 
     }
+
+
 
     public List<String> getTopTen() throws SQLException {
         String getTopTenQuery = "SELECT name,  CAST(SUM(rate * rate_strength) AS FLOAT) / CAST(SUM(rate_strength) AS FLOAT) AS avg_rate FROM rate GROUP BY name ORDER BY avg_rate DESC LIMIT 10";

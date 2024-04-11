@@ -13,7 +13,9 @@ public class RaterHandler {
     private UserRepositoryInterface userRepository;
 
     public void rankup(User user) throws SQLException{
+
         int numberOfRate = userRepository.getNumberOfRates(user);
+        System.out.println("Number of rates : " + numberOfRate);
         if(numberOfRate <= 5){
             user.setRole("Beginner");
         } else if(numberOfRate <= 10){

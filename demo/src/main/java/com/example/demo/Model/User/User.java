@@ -25,4 +25,8 @@ public abstract class User implements Searcher, Rater {
     protected int rateStrength;
 
     private String role;
+
+    public User(String role) {
+        this.role = role;
+    }
 }

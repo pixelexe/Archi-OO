@@ -43,12 +43,13 @@ public class UserRepository implements UserRepositoryInterface {
     }
 
     private void updateUser(User user) throws SQLException {
-        String query = "UPDATE user SET username = ?, email = ?, password = ? WHERE id = ?";
+        String query = "UPDATE user SET username = ?, email = ?, password = ?, role = ? WHERE id = ?";
         PreparedStatement stmt = this.conn.prepareStatement(query);
         stmt.setString(1, user.getUserName());
         stmt.setString(2, user.getEmail());
         stmt.setString(3, user.getPassword());
-        stmt.setInt(4, user.getId());
+        stmt.setString(4, user.getRole());
+        stmt.setInt(5, user.getId());
         stmt.executeUpdate();
     }
 
