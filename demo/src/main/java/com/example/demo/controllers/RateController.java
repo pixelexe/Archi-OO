@@ -1,7 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.Model.Place.Country;
-import com.example.demo.Model.Place.Place;
+import com.example.demo.Handler.RaterHandler;
 import com.example.demo.Model.Rate;
 import com.example.demo.Model.User.Rater;
 import com.example.demo.Model.User.User;
@@ -19,9 +19,8 @@ public class RateController {
 
     @Autowired
     private UserRepositoryInterface userRepository;
-
-    @Autowired
     private RateRepositoryInterface rateRepository;
+    private RaterHandler raterHandler;
 
     @GetMapping("/rateCountry")
     public String rateCountry(@RequestParam("name") String countryName,
@@ -34,7 +33,7 @@ public class RateController {
             }
             Rate rate = new Rate(new Country(countryName), user, rating, user.getRateStrength());
             rateRepository.persistRate(rate, user.getRateStrength());
-            rateRepository.rankup(user);
+            raterHandler.rankup(user);
             return "Country Rated";
         } catch (SQLException e) {
             return "Exception occurred : " + e.getMessage();

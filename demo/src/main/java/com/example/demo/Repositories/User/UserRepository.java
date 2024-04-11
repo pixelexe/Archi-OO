@@ -43,11 +43,12 @@ public class UserRepository implements UserRepositoryInterface {
     }
 
     private void updateUser(User user) throws SQLException {
-        String query = "UPDATE users SET username = ?, email = ?, password = ? WHERE id = ?";
+        String query = "UPDATE users SET username = ?, email = ?, password = ?, role = ? WHERE id = ?";
         PreparedStatement stmt = this.conn.prepareStatement(query);
         stmt.setString(1, user.getUserName());
         stmt.setString(2, user.getEmail());
         stmt.setString(3, user.getPassword());
+        stmt.setString(4, user.getRole());
         stmt.setInt(4, user.getId());
         stmt.executeUpdate();
     }
@@ -106,5 +107,19 @@ public class UserRepository implements UserRepositoryInterface {
         PreparedStatement stmt = this.conn.prepareStatement(query);
         stmt.setInt(1, user.getId());
         stmt.executeUpdate();
+    }
+
+    @Override
+    public int getNumberOfRates(User user){
+        String getNumberOfRateQuery = "SELECT COUNT(*) FROM rate WHERE idUser = ?";
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(getNumberOfRateQuery);
+            preparedStatement.setInt(1, user.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            return resultSet.getInt(1);
+        } catch (SQLException e) {
+            return 0;
+        }
     }
 }

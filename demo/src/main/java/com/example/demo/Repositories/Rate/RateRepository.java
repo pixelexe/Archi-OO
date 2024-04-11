@@ -1,7 +1,6 @@
 package com.example.demo.Repositories.Rate;
 
 import com.example.demo.Model.Place.Place;
-import com.example.demo.Model.User.User;
 import com.example.demo.Model.Rate;
 import com.example.demo.Repositories.User.UserRepositoryInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,44 +83,6 @@ public class RateRepository implements RateRepositoryInterface {
         return topTen;
     }
 
-    @Override
-    public void rankup(User user){
-        int getNumberOfRate = getNumberOfRate(user);
-        String rankupQuery = "UPDATE user SET role = ? WHERE id = ?";
-        try {
-            PreparedStatement preparedStatement = conn.prepareStatement(rankupQuery);
-            preparedStatement.setInt(2, user.getId());
-            if (getNumberOfRate <= 5){
-                preparedStatement.setString(1, "Begginner");
-            } 
-            else if(getNumberOfRate <= 10){
-                preparedStatement.setString(1, "Traveler");
-            }
-            else if(getNumberOfRate <= 15){
-                preparedStatement.setString(1, "Experienced");
-            }
-            else {
-                preparedStatement.setString(1, "GlobeTrotter");
-            }
-            preparedStatement.setInt(2, user.getId());
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println("Error ranking up user: " + e.getMessage());
-        }
-    }
-
-    @Override
-    public int getNumberOfRate(User user){
-        String getNumberOfRateQuery = "SELECT COUNT(*) FROM rate WHERE idUser = ?";
-        try {
-            PreparedStatement preparedStatement = conn.prepareStatement(getNumberOfRateQuery);
-            preparedStatement.setInt(1, user.getId());
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            return resultSet.getInt(1);
-        } catch (SQLException e) {
-            return 0;
-        }
-    }
+    
 
 }

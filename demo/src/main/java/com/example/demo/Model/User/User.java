@@ -24,4 +24,5 @@ public abstract class User implements Searcher, Rater {
 
     protected int rateStrength;
 
+    private String role;
 }

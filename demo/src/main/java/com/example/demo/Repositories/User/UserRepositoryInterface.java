@@ -17,4 +17,6 @@ public interface UserRepositoryInterface extends RepositoryInterface {
 
     void deleteUser(User user) throws SQLException;
 
+    int getNumberOfRates(User user);
+
 }
